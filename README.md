@@ -7,14 +7,14 @@ operations on entities persisted to a relational database.
 
 To support this it provides examples and hooks for using:
 
-a. command line ringo using embedded jetty
-b. MySQL via JDBC
-c. JSON request/response payload validation using JSON Schema
-d. easy per environment configuration (i.e. dev/cert/prod settings)
-e. enforcement of standard format JSON responses (even when exceptions occur)
-f. ability to emulate PUT/POST/DELETE using GET for ease of testing
-g. logging via log4j
-h. (optional) ip authentication of clients
+* command line ringo using embedded jetty
+* MySQL via JDBC
+* JSON request/response payload validation using JSON Schema
+* easy per environment configuration (i.e. dev/cert/prod settings)
+* enforcement of standard format JSON responses (even when exceptions occur)
+* ability to emulate PUT/POST/DELETE using GET for ease of testing
+* logging via log4j
+* (optional) ip authentication of clients
 
 ### Explanation and History
 
