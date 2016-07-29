@@ -192,7 +192,7 @@ This service has a URI of the form:
 ```
 	http://localhost:8080/jsonservice/api/person/<varname>.json
 ```
-Where <varname> is the name of a person in the PERSON table.
+Where &lt;varname&gt; is the name of a person in the PERSON table.
 
 You perform:
 * An http GET to read the person.
