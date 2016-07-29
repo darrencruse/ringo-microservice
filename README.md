@@ -417,7 +417,7 @@ https://github.com/hns/stick#readme
 
 * The CommonJS standard for server side javascript "modules"
 
-commonjs.org
+http://commonjs.org
 
 * The JSGI Server-Side Javascript "Gateway Interface" specification
 
