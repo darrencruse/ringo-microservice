@@ -166,9 +166,7 @@ Or through the Ringo mailing list or IRC chat:
 				   6 File(s)         13,180 bytes
 				   6 Dir(s)  71,709,642,752 bytes free
 ```
-2.  The main.js file is the main entry point for our app.
-	It can be run from the command line with the "ringo" command,
-	e.g.:
+2.  The main.js file is the main entry point for our app. It can be run from the command line with the "ringo" command, e.g.:
 ```
 	C:\ringo-microservice\jsonservice>ringo main.js
 	0    [main] INFO  environment  - Using default environment: localhost
@@ -178,38 +176,37 @@ Or through the Ringo mailing list or IRC chat:
 	1719 [main] INFO  org.eclipse.jetty.util.log  - Started SelectChannelConnector@0.0.0.0:8080 STARTING
 	1719 [main] INFO  ringo.httpserver  - Server on http://localhost:8080 started.
 ```
-	Note that by default our server listens on port 8080.  If another server is listening
-	on that port you will need to shut it down before running ringo.
+Note that by default our server listens on port 8080.  If another server is listening on that port you will need to shut it down before running ringo.
 
 3.  Now for a quick test you can bring up your browser and hit this test page url:
 ```
 	http://localhost:8080/jsonservice/api/person/test.html
 ```
-	If it's working (and talking to your MySQL database) you should see a little
-	page that say's "It's working!"
+If it's working (and talking to your MySQL database) you should see a little page that say's "It's working!"
 
 ### Exercising the example RESTful JSON service
 
 1.  A sample JSON service for creating/reading/updating/deleting persons in a PERSON table is provided.
 
-	This service has a URI of the form:
+This service has a URI of the form:
 ```
 	http://localhost:8080/jsonservice/api/person/<varname>.json
 ```
-	Where <varname> is the name of a person in the PERSON table.
+Where <varname> is the name of a person in the PERSON table.
 
-	You perform an http GET to read the person.
-	An http POST to create a person.
-	An http PUT to update an existing person.
-	And an http DELETE to delete a person.
+You perform:
+* An http GET to read the person.
+* An http POST to create a person.
+* An http PUT to update an existing person.
+* And an http DELETE to delete a person.
 
 2.  Try and retrieve a person that's not there just using your browser, e.g. use your name.
 
-	For me that would be:
+For me that would be:
 ```
 	http://localhost:8080/jsonservice/api/person/darren.json
 ```
-	Since the person is not found, I receive a JSON eror response like this:
+Since the person is not found, I receive a JSON eror response like this:
 ```
 	{
 		"schema":"error",
@@ -220,31 +217,31 @@ Or through the Ringo mailing list or IRC chat:
 		}
 	}
 ```
-	This format is the standard error format intended for use by all the jsonservice services.
+This format is the standard error format intended for use by all the jsonservice services.
 
-	There's a JSON schema that specifies this format precisely, in the file named schemas.js.
+There's a JSON schema that specifies this format precisely, in the file named schemas.js.
 
 3.	Now let's do a POST to create the person not found in the previous step.
 
-	Since a browser doesn't provide an easy way to do a POST from the address line alone, you may wish to download a helper plugin to do this.  In my case I use Firefox and the "Poster" plugin available here:
+Since a browser doesn't provide an easy way to do a POST from the address line alone, you may wish to download a helper plugin to do this.  In my case I use Firefox and the "Poster" plugin available here:
 ```
 	https://addons.mozilla.org/en-US/firefox/addon/poster/?src=search
 ```
-	Alternatively our app includes a way to test non-GET requests from the browser address line by including url parameters "http.method" and "http.body", e.g. to emulate an actual POST of a request body.
+Alternatively our app includes a way to test non-GET requests from the browser address line by including url parameters "http.method" and "http.body", e.g. to emulate an actual POST of a request body.
 
-	To add a person the code is setup to expect a simple JSON body like this:
+To add a person the code is setup to expect a simple JSON body like this:
 ```
 	{
 		"value": "architect"
 	}
 ```
-	This JSON format also has a JSON schema defining it in the file schemas.js
+This JSON format also has a JSON schema defining it in the file schemas.js
 
-	Using the simple way (without using Poster), we can add our person by hitting the following url in the browser's address line:
+Using the simple way (without using Poster), we can add our person by hitting the following url in the browser's address line:
 ```
 	http://localhost:8080/jsonservice/api/person/darren.json?http.method=POST&http.body={"value":"onlyatest"}
 ```
-	You should see a response similar to the following:
+You should see a response similar to the following:
 ```
 	{
 		"id": 1220,
@@ -252,25 +249,25 @@ Or through the Ringo mailing list or IRC chat:
 		"value": "thisisatest"
 	}
 ```
-4.	Exercise the other CRUD services as follows:
+4.  Exercise the other CRUD services as follows:
 
-	a.  Read the person you just created back again and confirm it's value is what you gave:
+a.  Read the person you just created back again and confirm it's value is what you gave:
 ```
 	http://localhost:8080/jsonservice/api/person/darren.json
 ```
-	b.	Update it's value:
+b.	Update it's value:
 ```
 	http://localhost:8080/jsonservice/api/person/darren.json?http.method=PUT&http.body={"value":"updated"}
 ```
-	c.  Read the person you just updated back again and confirm you updated value is returned:
+c.  Read the person you just updated back again and confirm you updated value is returned:
 ```
 	http://localhost:8080/jsonservice/api/person/darren.json
 ```
-	d.	Delete the person:
+d.	Delete the person:
 ```
 	http://localhost:8080/jsonservice/api/person/darren.json?http.method=DELETE
 ```
-	e.  Attempt to read the person again and confirm the person is no longer found:
+e.  Attempt to read the person again and confirm the person is no longer found:
 ```
 	http://localhost:8080/jsonservice/api/person/darren.json
 ```
