@@ -73,9 +73,9 @@ alternative to today's more popular alternatives for projects requiring the JVM.
 
 This repo includes:
 
-	REMOVED: The RingoJS Server-Side Javascript Framework (ringojs.org)
-	Some add-on modules in the CommonJS format (commonjs.org)
-	A sample app you can use as a starting point for your microservice.
+* REMOVED: The RingoJS Server-Side Javascript Framework (ringojs.org)
+* Some add-on modules in the CommonJS format (commonjs.org)
+* A sample app you can use as a starting point for your microservice.
 
 Note:  As indicated above I have removed the ringojs-0.8 directory from this
   repo as it seems more appropriate for you to download your own (and possibly
@@ -92,7 +92,7 @@ Note: We assume your MySQL database has a simple TEST.PERSON table with
 Below are instructions for installing this software and running
 the sample app on your local machine.
 
-* Installation
+### Installation
 
 1.  Clone the repo to your machine. e.g. On my PC
 	I chose to simply clone it into the root of C:.  The root
@@ -142,7 +142,7 @@ the sample app on your local machine.
 6.  Copy the contents of the ringo-microservices/packages directory
   to your %RINGO_HOME%\packages directory.
 
-* Running the Proof of Concept Sample App
+### Running the Sample App
 
 1.  In a DOS window, change to the jsonservice directory.  e.g.:
 
@@ -191,7 +191,7 @@ the sample app on your local machine.
 	If it's working (and talking to your MySQL database) you should see a little
 	page that say's "It's working!"
 
-* Exercising the example RESTful JSON service
+### Exercising the example RESTful JSON service
 
 1.  A sample JSON service for creating/reading/updating/deleting persons in a PERSON table is provided.
 
@@ -277,7 +277,7 @@ the sample app on your local machine.
 
 	http://localhost:8080/jsonservice/api/person/darren.json
 
-* Looking at the code
+### Looking at the code
 
 Now that you've exercised the provided services you might wish to walk through the code.
 
@@ -285,7 +285,7 @@ Here I'll briefly describe some of the more interesting files and what they're f
 
 Then you can use the Ringo debugger to step through the code to see exactly how it's working.
 
-1.  The Files
+####  The Files
 
 The files for our app all reside in the jsonservice directory and the directories beneath it.
 
@@ -293,17 +293,18 @@ The most important file to understand the services you exercised is person.js.  
 
 The other files here are:
 
-main.js
+* main.js
 
 The entry point to the app.  The most interesting line is near the end which actually starts the jetty http server you've been hitting:
-
+```
     require("ringo/httpserver").main(module.directory);
+```
 
-environment.js
+* environment.js
 
 This is a module that determines what environment (e.g. "development", "certification", "production") your app is running in.
 
-settings.js
+* settings.js
 
 This is a module for getting configuration settings, e.g. the information needed to connect to the database.
 
@@ -311,58 +312,58 @@ It's common for apps to deploy with the configuration settings for all possible 
 
 The actual configuration settings reside in development/certification/etc. subdirectories of the config directory, and this module returns the proper values depending on what environment the environment module says the app is running in.
 
-schemas.js
+* schemas.js
 
 This is module that organizes in one place all the JSON schemas for our application.
 
 JSON schemas are used to specify the precise JSON attributes (and their types) that can be sent to, or returned from, our RESTful JSON services.
 
-errutil.js
+* errutil.js
 
 This is a set of utility functions for generating errors from action handler methods in a consistent way that conforms to the error schema defined in schemas.js.
 
-2. The Directories
+#### The Directories
 
 The directories you see there are as follows:
 
-config
+* config
 
-	In addition to the environment specific settings subdirectories mentioned above, this directory contains the files log4j.properties and jetty.xml.
+In addition to the environment specific settings subdirectories mentioned above, this directory contains the files log4j.properties and jetty.xml.
 
-	You would likely never touch jetty.xml, unless you'd like to change the default port from 8080 to something else this is where you'd do that.
+You would likely never touch jetty.xml, unless you'd like to change the default port from 8080 to something else this is where you'd do that.
 
-	log4j.properties is the typical java log4j.properties file.  You can raise or lower your debug level there or include settings for new modules should you add them.
+log4j.properties is the typical java log4j.properties file.  You can raise or lower your debug level there or include settings for new modules should you add them.
 
-middleware
+* middleware
 
-	This directory contains custom "middleware" used by our app (beyond the standard "middleware" provided by the "stick" web framework which is part of Ringo).
+This directory contains custom "middleware" used by our app (beyond the standard "middleware" provided by the "stick" web framework which is part of Ringo).
 
-	There are currently just three (custom) middlewares used in our sample app:
+There are currently just three (custom) middlewares used in our sample app:
 
-	ipauthenticate.js checks if our requests are coming from an ip configured in our configuration settings.  If it doesn't an error is returned and the request is refused.
+ipauthenticate.js checks if our requests are coming from an ip configured in our configuration settings.  If it doesn't an error is returned and the request is refused.
 
-	jsonerror.js is middleware which allows low level code to throw an exception and have that translated to a standard JSON error response to the client.  In the future, this middleware will also ensure that no exceptions occurring in the application are sent to the client as an html formatted error page (since our application should return JSON to the client in all circumstances).
+jsonerror.js is middleware which allows low level code to throw an exception and have that translated to a standard JSON error response to the client.  In the future, this middleware will also ensure that no exceptions occurring in the application are sent to the client as an html formatted error page (since our application should return JSON to the client in all circumstances).
 
-	overridemethod.js is the middleware which allows us to emulate non-GET verbs on the browser address line by adding "http.method".
+overridemethod.js is the middleware which allows us to emulate non-GET verbs on the browser address line by adding "http.method".
 
-public
+* public
 
-	In a typical (html generating) web app, this directory is meant to serve static files to the browser.  e.g. It includes a CSS file used by our test.html page.
+In a typical (html generating) web app, this directory is meant to serve static files to the browser.  e.g. It includes a CSS file used by our test.html page.
 
-	This directory is specified to be used in main.js with the line:
+This directory is specified to be used in main.js with the line:
 
-	app.static(module.resolve("public"));
+app.static(module.resolve("public"));
 
-templates
+* templates
 
-	In a typical (html generating) web app, this directory is meant to hold page templates, where Ringo's "stick" web framework is configured to use "mustache" as it's default templating engine.
+In a typical (html generating) web app, this directory is meant to hold page templates, where Ringo's "stick" web framework is configured to use "mustache" as it's default templating engine.
 
-	In addition to individual page templates, this directory also holds "master layout" templates, as configured in person.js with the lines:
+In addition to individual page templates, this directory also holds "master layout" templates, as configured in person.js with the lines:
 
-	app.render.base = module.resolve("templates");
-	app.render.master = "page.html";
+app.render.base = module.resolve("templates");
+app.render.master = "page.html";
 
-3.  Using the Ringo Debugger
+### Using the Ringo Debugger
 
 	There are various comments in the code to help explain it, but (esp. if you're new to Ringo) you might best understand the code by single stepping it in the Ringo debugger.
 
@@ -400,7 +401,7 @@ templates
 
 	For example, you can set a breakpoint at line 40 of stick/lib/stick.js (in the "app" function), and step through the stick web frameworks handling of the request, including the "middleware" executed prior to our person.js file.
 
-4.	References
+### References
 
 	For additional info you may wish to consult one or more of the following:
 
