@@ -111,41 +111,41 @@ the sample app on your local machine.
 
 	If this is set correctly you should be able to do "java -version"
     from a DOS window and see something like the following:
-
+```
 	C:\ringo-microservice>java -version
 	java version "1.7.0"
 	Java(TM) SE Runtime Environment (build 1.7.0-b147)
 	Java HotSpot(TM) Client VM (build 21.0-b17, mixed mode, sharing)
-
+```
 3.  Next set RINGO_HOME to point at the ringo directory where you've installed
   ringo.  Since I installed in C:\ringo-microservice mine looks like:
-
+```
 	RINGO_HOME=C:\ringo-microservice\ringojs-0.8
-
+```
 	Likewise add %RINGO_HOME%\bin to your PATH.
 
 4.  If the steps above are done correctly you should now be able to do
 	the following at a DOS prompt:
-
+```
 	C:\ringo-microservice>ringo -version
 	RingoJS version 0.8
-
+```
 5.  If for any reason the above steps don't work, you might find additional
 	information at the ringo install page:
-
+```
 	http://ringojs.org/getting_started
-
+```
 	Or through the Ringo mailing list or IRC chat:
-
+```
 	http://ringojs.org/wiki/Community
-
+```
 6.  Copy the contents of the ringo-microservices/packages directory
   to your %RINGO_HOME%\packages directory.
 
 ### Running the Sample App
 
 1.  In a DOS window, change to the jsonservice directory.  e.g.:
-
+```
 	C:\>cd C:\ringo-microservice\jsonservice
 
 	C:\ringo-microservice\jsonservice>dir
@@ -168,11 +168,11 @@ the sample app on your local machine.
 	02/10/2012  01:05 PM             6,054 person.js
 				   6 File(s)         13,180 bytes
 				   6 Dir(s)  71,709,642,752 bytes free
-
+```
 2.  The main.js file is the main entry point for our app.
 	It can be run from the command line with the "ringo" command,
 	e.g.:
-
+```
 	C:\ringo-microservice\jsonservice>ringo main.js
 	0    [main] INFO  environment  - Using default environment: localhost
 	js: warning: "JSV/lib/json-schema-draft-03.js", line 917: Assignment to undeclared variable initializer
@@ -180,14 +180,14 @@ the sample app on your local machine.
 	1688 [main] INFO  org.eclipse.jetty.util.log  - started o.e.j.s.ServletContextHandler{/,null}
 	1719 [main] INFO  org.eclipse.jetty.util.log  - Started SelectChannelConnector@0.0.0.0:8080 STARTING
 	1719 [main] INFO  ringo.httpserver  - Server on http://localhost:8080 started.
-
+```
 	Note that by default our server listens on port 8080.  If another server is listening
 	on that port you will need to shut it down before running ringo.
 
 3.  Now for a quick test you can bring up your browser and hit this test page url:
-
+```
 	http://localhost:8080/jsonservice/api/person/test.html
-
+```
 	If it's working (and talking to your MySQL database) you should see a little
 	page that say's "It's working!"
 
@@ -196,9 +196,9 @@ the sample app on your local machine.
 1.  A sample JSON service for creating/reading/updating/deleting persons in a PERSON table is provided.
 
 	This service has a URI of the form:
-
+```
 	http://localhost:8080/jsonservice/api/person/<varname>.json
-
+```
 	Where <varname> is the name of a person in the PERSON table.
 
 	You perform an http GET to read the person.
@@ -209,11 +209,11 @@ the sample app on your local machine.
 2.  Try and retrieve a person that's not there just using your browser, e.g. use your name.
 
 	For me that would be:
-
+```
 	http://localhost:8080/jsonservice/api/person/darren.json
-
+```
 	Since the person is not found, I receive a JSON eror response like this:
-
+```
 	{
 		"schema":"error",
 		"responseId":"f7e45f69-abb8-4363-8ad2-14c282474847",
@@ -222,7 +222,7 @@ the sample app on your local machine.
 			"message":"no such person: darren"
 		}
 	}
-
+```
 	This format is the standard error format intended for use by all the jsonservice services.
 
 	There's a JSON schema that specifies this format precisely, in the file named schemas.js.
@@ -230,53 +230,53 @@ the sample app on your local machine.
 3.	Now let's do a POST to create the person not found in the previous step.
 
 	Since a browser doesn't provide an easy way to do a POST from the address line alone, you may wish to download a helper plugin to do this.  In my case I use Firefox and the "Poster" plugin available here:
-
+```
 	https://addons.mozilla.org/en-US/firefox/addon/poster/?src=search
-
+```
 	Alternatively our app includes a way to test non-GET requests from the browser address line by including url parameters "http.method" and "http.body", e.g. to emulate an actual POST of a request body.
 
 	To add a person the code is setup to expect a simple JSON body like this:
-
+```
 	{
 		"value": "architect"
 	}
-
+```
 	This JSON format also has a JSON schema defining it in the file schemas.js
 
 	Using the simple way (without using Poster), we can add our person by hitting the following url in the browser's address line:
-
+```
 	http://localhost:8080/jsonservice/api/person/darren.json?http.method=POST&http.body={"value":"onlyatest"}
-
+```
 	You should see a response similar to the following:
-
+```
 	{
 		"id": 1220,
 		"name": "darren",
 		"value": "thisisatest"
 	}
-
+```
 4.	Exercise the other CRUD services as follows:
 
 	a.  Read the person you just created back again and confirm it's value is what you gave:
-
+```
 	http://localhost:8080/jsonservice/api/person/darren.json
-
+```
 	b.	Update it's value:
-
+```
 	http://localhost:8080/jsonservice/api/person/darren.json?http.method=PUT&http.body={"value":"updated"}
-
+```
 	c.  Read the person you just updated back again and confirm you updated value is returned:
-
+```
 	http://localhost:8080/jsonservice/api/person/darren.json
-
+```
 	d.	Delete the person:
-
+```
 	http://localhost:8080/jsonservice/api/person/darren.json?http.method=DELETE
-
+```
 	e.  Attempt to read the person again and confirm the person is no longer found:
-
+```
 	http://localhost:8080/jsonservice/api/person/darren.json
-
+```
 ### Looking at the code
 
 Now that you've exercised the provided services you might wish to walk through the code.
