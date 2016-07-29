@@ -351,82 +351,84 @@ overridemethod.js is the middleware which allows us to emulate non-GET verbs on 
 In a typical (html generating) web app, this directory is meant to serve static files to the browser.  e.g. It includes a CSS file used by our test.html page.
 
 This directory is specified to be used in main.js with the line:
-
+```
 app.static(module.resolve("public"));
+```
 
 * templates
 
 In a typical (html generating) web app, this directory is meant to hold page templates, where Ringo's "stick" web framework is configured to use "mustache" as it's default templating engine.
 
 In addition to individual page templates, this directory also holds "master layout" templates, as configured in person.js with the lines:
-
+```
 app.render.base = module.resolve("templates");
 app.render.master = "page.html";
+```
 
 ### Using the Ringo Debugger
 
-	There are various comments in the code to help explain it, but (esp. if you're new to Ringo) you might best understand the code by single stepping it in the Ringo debugger.
+There are various comments in the code to help explain it, but (esp. if you're new to Ringo) you might best understand the code by single stepping it in the Ringo debugger.
 
-	To start the debugger you type:
+To start the debugger you type:
+```
+ringo -d main.js
+```
+Where the -d option tells ringo to start the debugger.
 
-	ringo -d main.js
+Note:  If your server was running from the previous steps, note that you simply do control-C in the DOS window to stop it (unlike other app servers, there's no elaborate shutdown procedure).
 
-	Where the -d option tells ringo to start the debugger.
+When the debugger comes up it initally stops on the first line of the main.js file.
 
-	Note:  If your server was running from the previous steps, note that you simply do control-C in the DOS window to stop it (unlike other app servers, there's no elaborate shutdown procedure).
+You must click "Go" to run the program.  Do that now.
 
-	When the debugger comes up it initally stops on the first line of the main.js file.
+Currently, you will also see an error dialog pop up saying "Cannot find module 'C:\ringo-microservice\jsonservice\'.  This should be resolved in the future, but for now simply click "OK" when that pops up, then click Go again.
 
-	You must click "Go" to run the program.  Do that now.
+At this point, your server should be running in the debugger.
 
-	Currently, you will also see an error dialog pop up saying "Cannot find module 'C:\ringo-microservice\jsonservice\'.  This should be resolved in the future, but for now simply click "OK" when that pops up, then click Go again.
+And you should see our program's files listed on the left.
 
-	At this point, your server should be running in the debugger.
+Note:  If you don't see person.js listed, you may need to hit our application first (you can use one of the REST urls from the earlier steps above) to make it show up in the list.  This is because the debugger only displays a file after it's actually executed it.
 
-	And you should see our program's files listed on the left.
+Double click the person.js file and set a breakpoint in one of the "action handler" methods.
 
-	Note:  If you don't see person.js listed, you may need to hit our application first (you can use one of the REST urls from the earlier steps above) to make it show up in the list.  This is because the debugger only displays a file after it's actually executed it.
+Then hit one of our RESTful urls (from the previous steps) to cause your breakpoint to be hit.
 
-	Double click the person.js file and set a breakpoint in one of the "action handler" methods.
+At this point you can step over, step into as with any debugger.
 
-	Then hit one of our RESTful urls (from the previous steps) to cause your breakpoint to be hit.
+The current values of persons are displayed at the bottom left (I most often use the "Locals" tab).
 
-	At this point you can step over, step into as with any debugger.
+On the bottom right is an Evaluate tab which can also be handy.  In it you can type javascript expressions and execute them directly.
 
-	The current values of persons are displayed at the bottom left (I most often use the "Locals" tab).
+If you're new to Ringo, and e.g. coming from a java background, you might be surprised to learn that the debugger can be used to fairly quickly step through and understand not only how our code handles a request, but how Ringo itself is handling a request.
 
-	On the bottom right is an Evaluate tab which can also be handy.  In it you can type javascript expressions and execute them directly.
-
-	If you're new to Ringo, and e.g. coming from a java background, you might be surprised to learn that the debugger can be used to fairly quickly step through and understand not only how our code handles a request, but how Ringo itself is handling a request.
-
-	For example, you can set a breakpoint at line 40 of stick/lib/stick.js (in the "app" function), and step through the stick web frameworks handling of the request, including the "middleware" executed prior to our person.js file.
+For example, you can set a breakpoint at line 40 of stick/lib/stick.js (in the "app" function), and step through the stick web frameworks handling of the request, including the "middleware" executed prior to our person.js file.
 
 ### References
 
-	For additional info you may wish to consult one or more of the following:
+For additional info you may wish to consult one or more of the following:
 
-	* RingoJS:
+* RingoJS:
 
-	ringojs.org
+ringojs.org
 
-	* Ringo's "Stick" web framework:
+* Ringo's "Stick" web framework:
 
-	https://github.com/hns/stick#readme
+https://github.com/hns/stick#readme
 
-	* The CommonJS standard for server side javascript "modules"
+* The CommonJS standard for server side javascript "modules"
 
-	commonjs.org
+commonjs.org
 
-	* The JSGI Server-Side Javascript "Gateway Interface" specification
+* The JSGI Server-Side Javascript "Gateway Interface" specification
 
-	http://wiki.commonjs.org/wiki/JSGI/Level0/A/Draft2
+http://wiki.commonjs.org/wiki/JSGI/Level0/A/Draft2
 
-	* Ringo is built atop the Rhino javascript interpreter (which sits atop java)
+* Ringo is built atop the Rhino javascript interpreter (which sits atop java)
 
-	* This is a very helpful article explaining how to use java code from Ringo/Rhino
+* This is a very helpful article explaining how to use java code from Ringo/Rhino
 
-	http://www.mozilla.org/rhino/ScriptingJava.html
+http://www.mozilla.org/rhino/ScriptingJava.html
 
-	* The RingoJS mailing list is a great help whether searching the archives or posting questions of your own:
+* The RingoJS mailing list is a great help whether searching the archives or posting questions of your own:
 
-	http://groups.google.com/group/ringojs
+http://groups.google.com/group/ringojs
