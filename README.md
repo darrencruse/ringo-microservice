@@ -122,25 +122,22 @@ the sample app on your local machine.
 ```
 	RINGO_HOME=C:\ringo-microservice\ringojs-0.8
 ```
-	Likewise add %RINGO_HOME%\bin to your PATH.
+Likewise add %RINGO_HOME%\bin to your PATH.
 
-4.  If the steps above are done correctly you should now be able to do
-	the following at a DOS prompt:
+4.  If the steps above are done correctly you should now be able to do the following at a DOS prompt:
 ```
 	C:\ringo-microservice>ringo -version
 	RingoJS version 0.8
 ```
-5.  If for any reason the above steps don't work, you might find additional
-	information at the ringo install page:
+5.  If for any reason the above steps don't work, you might find additional information at the ringo install page:
 ```
 	http://ringojs.org/getting_started
 ```
-	Or through the Ringo mailing list or IRC chat:
+Or through the Ringo mailing list or IRC chat:
 ```
 	http://ringojs.org/wiki/Community
 ```
-6.  Copy the contents of the ringo-microservices/packages directory
-  to your %RINGO_HOME%\packages directory.
+6.  Copy the contents of the ringo-microservices/packages directory to your %RINGO_HOME%\packages directory.
 
 ### Running the Sample App
 
