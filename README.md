@@ -334,11 +334,11 @@ This directory contains custom "middleware" used by our app (beyond the standard
 
 There are currently just three (custom) middlewares used in our sample app:
 
-ipauthenticate.js checks if our requests are coming from an ip configured in our configuration settings.  If it doesn't an error is returned and the request is refused.
+1. ipauthenticate.js checks if our requests are coming from an ip configured in our configuration settings.  If it doesn't an error is returned and the request is refused.
 
-jsonerror.js is middleware which allows low level code to throw an exception and have that translated to a standard JSON error response to the client.  In the future, this middleware will also ensure that no exceptions occurring in the application are sent to the client as an html formatted error page (since our application should return JSON to the client in all circumstances).
+2. jsonerror.js is middleware which allows low level code to throw an exception and have that translated to a standard JSON error response to the client.  In the future, this middleware will also ensure that no exceptions occurring in the application are sent to the client as an html formatted error page (since our application should return JSON to the client in all circumstances).
 
-overridemethod.js is the middleware which allows us to emulate non-GET verbs on the browser address line by adding "http.method".
+3. overridemethod.js is the middleware which allows us to emulate non-GET verbs on the browser address line by adding "http.method".
 
 * public
 
